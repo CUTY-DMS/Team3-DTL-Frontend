@@ -1,0 +1,10 @@
+@font-face {
+    font-family: "DoHyeon";
+    src: url("../assets/fonts/DoHyeon-Regular.ttf");
+    }
+
+a{
+    text-decoration: none;
+    color: white;
+    font-family: 'DoHyeon';
+    }

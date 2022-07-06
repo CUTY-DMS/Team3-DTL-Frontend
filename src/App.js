@@ -1,43 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
-import styled from "styled-components";
-import mainDTL from "./img/mainDTL.png"
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import SignUppage from './pages/SignUppage'
+import Mainpage from './pages/Mainpage';
+import Writepage from './pages/Writepage';
+import Loginpage from './pages/Loginpage';
 
 function App() {
+
   return (
   <>
-    <Header>
-      <Img src={mainDTL} />
-      <Disf>
-        <Log>로그인</Log>
-        <Log>회원가입</Log>
-      </Disf>
-    </Header>
+    <BrowserRouter>
+    <Routes>
+      <Route exact path="/" element={<Mainpage/>}></Route>
+      <Route path="/Loginpage" element={<Loginpage/>}></Route>
+      <Route path="/SignUppage" element={<SignUppage/>}></Route>
+      <Route path="/writepage" element={<Writepage/>}></Route>
+    </Routes>
+    </BrowserRouter>
   </>
   );
 }
 
 export default App;
-
-const Img = styled.img`
-  width: 100px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-left: 10px;
-`
-
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 0px solid black;
-  background-color: #51A7FE;
-`
-const Disf = styled.div`
-  display: flex;
-  margin-right: 15px;
-`
-
-const Log = styled.div`
-  margin-left: 15px;
-`

@@ -1,19 +1,22 @@
-import React, { useState } from "react";
-import axios from "axios";
-import App from "../App";
-import styled from "styled-components";
+import React, {useState} from "react";
+import styled from "styled-components"
 import TextField from "@mui/material/TextField";
 import { Container } from "@mui/system"
 import { Grid } from "@mui/material"
+import axios from "axios";
 
 function SignUp(){
     const [name, setname] = useState("");
     const [id, setid] = useState("");
     const [password, setpassword] = useState("");
-    const [number, setnumber] = useState(1);
+    const [number, setnumber] = useState(0);
 
     const minus = (event) => {
-        if(event.target.value >= 0 || event.target.value < 100) setnumber(event.target.value);
+        if(event.target.value >= 0 || event.target.value < 100)
+        setnumber(event.target.value);
+        else{
+            alert("나이를 정확히 입력해주십시오.");
+        }
     }
 
     const ClickEvent=()=>{
@@ -26,18 +29,19 @@ function SignUp(){
         })
         .then((response) =>{
             alert("회원가입에 성공했습니다.");
+            document.location.href = '/';
         })
         .catch((error) => {
-            alert("Error");
+            alert("정보를 다시 입력하여 주십시오.");
         });
     }
 
     return(
     <>
     <Container component="main" maxWidth="xs">
-    <Absol>
-        <Mag>
-            <Mag>이름</Mag>
+    <Wrapper>
+        <InputDiv>
+            <Text>이름</Text>
             <Grid item xs={12}>
                 <TextField 
                 required 
@@ -50,9 +54,9 @@ function SignUp(){
                 }}
                 />
             </Grid>
-        </Mag>
-        <Mag>
-            <Mag>나이</Mag>
+        </InputDiv>
+        <InputDiv>
+            <Text>나이</Text>
             <TextField
             required
             fullWidth
@@ -63,9 +67,9 @@ function SignUp(){
             InputProps={{ inputProps: { min: 0, max: 100 }}}
             onChange={minus}
             />
-        </Mag>
-        <Mag>
-            <Mag>아이디</Mag>
+        </InputDiv>
+        <InputDiv>
+            <Text>아이디</Text>
             <TextField 
             required 
             fullWidth 
@@ -76,9 +80,9 @@ function SignUp(){
             setid(event.target.value);
             }}
             />
-        </Mag>
-        <Mag>
-            <Mag>비밀번호</Mag>
+        </InputDiv>
+        <InputDiv>
+            <Text>비밀번호</Text>
             <TextField 
             required
             fullWidth
@@ -90,9 +94,9 @@ function SignUp(){
             setpassword(event.target.value);
             }}
             />
-        </Mag>
-        <Btn type="submit" onClick={ClickEvent}>완료</Btn>
-    </Absol>
+        </InputDiv>
+        <Btn type="submit" onClick={ClickEvent}>회원 가입하기</Btn>
+    </Wrapper>
     </Container>
     </>
     )
@@ -101,7 +105,7 @@ function SignUp(){
 
 export default SignUp;
 
-const Absol = styled.div`
+const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -110,19 +114,24 @@ const Absol = styled.div`
     border: 0px solid black;
 `
 
-const Mag = styled.div`
+const InputDiv = styled.div`
+`
+
+const Text = styled.div`
     margin-top: 10px;
+    color: white;
     margin-bottom: 20px;
-    font-weight: 900;
     border: 0px solid black;
     width: 400px;
+    font-family: 'DoHyeon';
 ` 
 
 const Btn = styled.button`
-    border-radius: 10px;
     border-style: none;
-    width: 60px;
-    height: 30px;
-    margin-top: 20px;
-    color: #2E9AFE;
+    width: 160px;
+    height: 50px;
+    margin-top: 50px;
+    font-weight: 900;
+    color: white;
+    background-color: black;
 `
