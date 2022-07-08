@@ -1,15 +1,15 @@
 import React, {useState} from "react";
 import styled from "styled-components"
-import TextField from "@mui/material/TextField";
-import { Container } from "@mui/system"
-import { Grid } from "@mui/material"
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function SignUp(){
     const [name, setname] = useState("");
     const [id, setid] = useState("");
     const [password, setpassword] = useState("");
     const [number, setnumber] = useState(0);
+
+    const navigate = useNavigate();
 
     const minus = (event) => {
         if(event.target.value >= 0 || event.target.value < 100)
@@ -29,7 +29,7 @@ function SignUp(){
         })
         .then((response) =>{
             alert("회원가입에 성공했습니다.");
-            document.location.href = '/';
+            navigate("/");
         })
         .catch((error) => {
             alert("정보를 다시 입력하여 주십시오.");
@@ -38,12 +38,10 @@ function SignUp(){
 
     return(
     <>
-    <Container component="main" maxWidth="xs">
     <Wrapper>
         <InputDiv>
             <Text>이름</Text>
-            <Grid item xs={12}>
-                <TextField 
+                <Input 
                 required 
                 autoFocus label="이름" 
                 id="name" 
@@ -53,24 +51,24 @@ function SignUp(){
                     setname(event.target.value);
                 }}
                 />
-            </Grid>
         </InputDiv>
         <InputDiv>
             <Text>나이</Text>
-            <TextField
+            <Input
             required
             fullWidth
             label="나이"
             type="number"
             id="number"
             value={number}
-            InputProps={{ inputProps: { min: 0, max: 100 }}}
+            min={0}
+            max={100}
             onChange={minus}
             />
         </InputDiv>
         <InputDiv>
             <Text>아이디</Text>
-            <TextField 
+            <Input 
             required 
             fullWidth 
             label="아이디" 
@@ -83,7 +81,7 @@ function SignUp(){
         </InputDiv>
         <InputDiv>
             <Text>비밀번호</Text>
-            <TextField 
+            <Input 
             required
             fullWidth
             label="비밀번호"
@@ -97,7 +95,6 @@ function SignUp(){
         </InputDiv>
         <Btn type="submit" onClick={ClickEvent}>회원 가입하기</Btn>
     </Wrapper>
-    </Container>
     </>
     )
 }
@@ -107,22 +104,23 @@ export default SignUp;
 
 const Wrapper = styled.div`
     display: flex;
+    height: 100vh;
+    padding-top: 30px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 50px;
     border: 0px solid black;
+    background-color: #00000016;
 `
 
 const InputDiv = styled.div`
 `
 
 const Text = styled.div`
-    margin-top: 10px;
-    color: white;
-    margin-bottom: 20px;
+    margin-top: 30px;
+    color: black;
+    margin-bottom: 10px;
     border: 0px solid black;
-    width: 400px;
     font-family: 'DoHyeon';
 ` 
 
@@ -135,3 +133,12 @@ const Btn = styled.button`
     color: white;
     background-color: black;
 `
+
+const Input = styled.input`
+    width: 390px;
+    height: 40px;
+    border-radius: 5px;
+    border-color: #000000a0;
+    border-width: 1px;
+    padding-left: 15px;
+    `

@@ -1,12 +1,13 @@
 import React,{useState} from "react";
 import styled from "styled-components"
 import axios from "axios";
-import TextField from "@mui/material/TextField";
-import { Container } from "@mui/system"
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [id, setid] = useState("");
     const [password, setpassword] = useState("");
+
+    const navigate = useNavigate();
 
     const ClickEvent = () => {
         axios.post("http://10.156.147.206:8080/users/signin", 
@@ -15,9 +16,9 @@ const Login = () => {
             "userPw" : password,
         })
         .then((response) =>{
-            localStorage.setItem("token", response.data.name);
+            localStorage.setItem("token", response.data.token);
             alert("로그인에 성공했습니다.");
-            document.location.href = '/'
+            navigate("/");
         })
         .catch((error) => {
             alert("정보를 정확히 입력하여 주십시오.");
@@ -26,7 +27,6 @@ const Login = () => {
 
     return (
     <>
-    <Container component="main" maxWidth="xs">
     <Wrapper>
         <InputDiv>
             <InputDiv>아이디</InputDiv>
@@ -57,17 +57,16 @@ const Login = () => {
         </InputDiv>
         <Btn type="submit" onClick={ClickEvent}>로그인하기</Btn>
     </Wrapper>
-    </Container>
     </>
     )
 }
 
 const Wrapper = styled.div`
     display: flex;
+    height: 100vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 50px;
     border: 0px solid black;
     background-color: #00000016;
 `
@@ -93,9 +92,11 @@ const Btn = styled.button`
 
 const Input = styled.input`
     width: 390px;
-    height: 25px;
+    height: 40px;
+    border-radius: 5px;
     border-color: #000000a0;
     border-width: 1px;
+    padding-left: 15px;
 `
 
 export default Login

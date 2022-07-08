@@ -3,12 +3,15 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import mainDTL from "../assets/img/mainDTL.png";
 import "../style/style.css";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
 
+  const navigate = useNavigate();
+
   const Logout = () => {
     localStorage.removeItem("token");
-    document.location.href = '/';
+    navigate("/");
   }
 
     return( 
@@ -16,7 +19,7 @@ const Header = () => {
         <Wrapper>
         <Link to="/"><Img src={mainDTL} /></Link>
         <Sort>
-        {!localStorage.getItem("token") && 
+        {!localStorage.getItem("token") &&
             (<>
               <Font><Link to="../Loginpage"><ColorWhite>로그인</ColorWhite></Link></Font>
               <Font><Link to="../SignUppage"><ColorWhite>회원가입</ColorWhite></Link></Font>
@@ -25,7 +28,7 @@ const Header = () => {
             {localStorage.getItem("token") && 
             (<>
             <Font><Link to="../writepage"><ColorWhite>글쓰기</ColorWhite></Link></Font>
-            <Font><Link to="../Mypagepage"><ColorWhite>마이페이지</ColorWhite></Link></Font>
+            <Font><Link to="../Mypage"><ColorWhite>마이페이지</ColorWhite></Link></Font>
             <Font><ColorWhite onClick={Logout}>로그아웃</ColorWhite></Font>
             </>
             )}
@@ -51,12 +54,15 @@ const Img = styled.img`
 `
 
 const Wrapper = styled.div`
+  position: absolute;
+  width: 100vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border: 0px solid black;
-  background-color: #0000005b;
+  background-color: #000000cf;
   `
+
 const Sort = styled.div`
   display: flex;
   margin-right: 35px;

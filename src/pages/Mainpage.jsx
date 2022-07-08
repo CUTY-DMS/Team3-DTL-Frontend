@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
+import Main from "../components/Main";
 
 //todo
 //게시글 목록 불러왔을때 401에러가 뜬다면 
@@ -7,7 +8,8 @@ import Header from "../components/Header";
 
 const Mainpage = () => {
     return <>
-    <Header/>
+    <Header />
+    <Main />
     </>
 }
 
