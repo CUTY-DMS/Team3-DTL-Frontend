@@ -6,8 +6,8 @@ const My = () => {
     const [nameList,setNameList] = useState([]);
     useEffect(
         () => {
-            axios.get("http://10.156.147.206:8080/users/my"), 
-            {headers: { Authentication: `${localStorage.getItem("token")}`}}
+            axios.get("http://10.156.147.206:8080/users/my", 
+            {headers: { Authentication: `${localStorage.getItem("token")}`}})
             .then((response) =>{
                 setNameList(response.data)
             })
@@ -26,7 +26,6 @@ const My = () => {
     }
 
         return(
-            <>
             <BackColor>
             <Wrapper>{nameList.map((list, index) => 
                 <Textdiv key={index}>
@@ -42,7 +41,6 @@ const My = () => {
                 </Textdiv>
             )}</Wrapper>
             </BackColor>
-            </>
         )
 }
 
@@ -102,8 +100,4 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     padding-top: 150px;
-`
-
-const ExampleList = styled.div`
-    
 `

@@ -100,7 +100,3 @@ const Wrapper = styled.div`
     align-items: center;
     padding-top: 150px;
 `
-
-const ExampleList = styled.div`
-    
-`
