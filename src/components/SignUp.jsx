@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import styled from "styled-components"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function SignUp(){
     const [name, setname] = useState("");
@@ -20,7 +21,7 @@ function SignUp(){
     }
 
     const ClickEvent=()=>{
-        axios.post("http://10.156.147.206:8080/users/signup", 
+        axios.post("http://3.34.157.6:8080/users/signup", 
         {
             "userId" : id,
             "userAge" : number,
@@ -28,11 +29,19 @@ function SignUp(){
             "userPw" : password,
         })
         .then((response) =>{
-            alert("회원가입에 성공했습니다.");
+            Swal.fire(
+                '회원 가입 성공',
+                '회원 가입에 성공하셨습니다.',
+                'success'
+            )
             navigate("/");
         })
         .catch((error) => {
-            alert("정보를 다시 입력하여 주십시오.");
+            Swal.fire(
+                '회원 가입 실패',
+                '회원 정보를 다시 입력해주세요',
+                'error'
+            )
         });
     }
 

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 
 const Write = () => {
     const [data, setData] = useState({
@@ -17,7 +18,7 @@ const Write = () => {
             ...data, // 기존의 input 객체를 복사한 뒤
             [name]: value // name 키를 가진 값을 value 로 설정
         });
-      };
+    };
     
 
     const navigate = useNavigate();
@@ -27,22 +28,32 @@ const Write = () => {
             Submit();
         }
         else{
-            alert("글을 입력해주세요.");
+            Swal.fire(
+                '글쓰기 실패',
+                '글을 입력해주세요.',
+                'error'
+            )
         }
     }
 
     const Submit = () => {
-        axios.post("http://10.156.147.206:8080/post", 
+        axios.post("http://3.34.157.6:8080/post", 
         data, {headers: { Authentication: `${localStorage.getItem("token")}`}}
         )
         .then((response) =>{
-            console.log(response)
-            alert("글쓰기에 성공했습니다.");
+            Swal.fire(
+                '글쓰기 성공',
+                '글이 성공적으로 업로드 되었습니다.',
+                'success'
+            )
             navigate("/");
         })
         .catch((error) => {
-            alert("글을 다시 확인 주십시오.");
-            console.log(error)
+            Swal.fire(
+                '글쓰기 실패',
+                '글을 다시 확인해주세요.',
+                'error'
+            )
             console.log(localStorage.getItem("token"))
         });
     }

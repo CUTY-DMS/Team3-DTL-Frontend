@@ -1,18 +1,23 @@
 import React,{useState, useEffect} from "react";
 import styled from "styled-components"
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const My = () => {
     const [nameList,setNameList] = useState([]);
     useEffect(
         () => {
-            axios.get("http://10.156.147.206:8080/users/my", 
+            axios.get("http://3.34.157.6:8080/users/my", 
             {headers: { Authentication: `${localStorage.getItem("token")}`}})
             .then((response) =>{
                 setNameList(response.data)
             })
             .catch((error) => {
-                alert("빽정 뭐함?");
+                Swal.fire(
+                    '불러오기 실패',
+                    '빽정에게 문의하세요.',
+                    'error'
+                )
             })
         },[]
     )

@@ -1,20 +1,35 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components"
+import Swal from "sweetalert2";
 
 const Main = () => {
     const [nameList,setNameList] = useState([]);
     useEffect(
         () => {
-            axios.get("http://10.156.147.206:8080/post/main")
+            axios.get("http://3.34.157.6:8080/post/main")
             .then((response) =>{
                 setNameList(response.data)
             })
             .catch((error) => {
-                alert("빽정 뭐함?");
+                Swal.fire(
+                    '불러오기 실패',
+                    '빽정에게 문의하세요.',
+                    'error'
+                )
             })
         },[]
     )
+
+    const CheckBoxClick = (e) => {
+        const text = document.getElementById("text")
+        if(e.checked === true){
+            text.className = "underbar";
+        }
+        else if(e.checked !== true){
+            text.classList.remove("underbar");
+        }
+    };
 
     const Delete = () => {
 
@@ -27,7 +42,9 @@ const Main = () => {
     return (
         <BackColor>
             <Wrapper>{nameList.map((list, index) =>
-                <Textdiv key={index}>
+            <>
+                <input type="checkbox" onClick={CheckBoxClick}></input>
+                <Textdiv key={index} id="text">
                     <Titlediv>
                         <div>{list.title}</div>
                         <Flex>
@@ -38,6 +55,7 @@ const Main = () => {
                     <ContentsText>{list.contents}</ContentsText>
                     <IdText>{list.member_id}</IdText>
                 </Textdiv>
+            </>
             )}</Wrapper>
         </BackColor>
     )
