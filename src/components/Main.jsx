@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components"
 import Swal from "sweetalert2";
+import "../style/style.css";
 
 const Main = () => {
     const [nameList,setNameList] = useState([]);
     useEffect(
         () => {
-            axios.get("http://3.34.157.6:8080/post/main")
+            axios.get("http://10.156.147.206:8080/post/main")
             .then((response) =>{
                 setNameList(response.data)
             })
@@ -21,41 +22,16 @@ const Main = () => {
         },[]
     )
 
-    const CheckBoxClick = (e) => {
-        const text = document.getElementById("text")
-        if(e.checked === true){
-            text.className = "underbar";
-        }
-        else if(e.checked !== true){
-            text.classList.remove("underbar");
-        }
-    };
-
-    const Delete = () => {
-
-    }
-
-    const Correction = () => {
-
-    }
-
     return (
         <BackColor>
             <Wrapper>{nameList.map((list, index) =>
-            <>
-                <input type="checkbox" onClick={CheckBoxClick}></input>
-                <Textdiv key={index} id="text">
+                <Textdiv key={index} className="text">
                     <Titlediv>
                         <div>{list.title}</div>
-                        <Flex>
-                            <CorrectionEmoji onClick={Correction}>📄</CorrectionEmoji>
-                            <DeleteEmoji onClick={Delete}>🗑️</DeleteEmoji>
-                        </Flex>
                     </Titlediv>
                     <ContentsText>{list.contents}</ContentsText>
-                    <IdText>{list.member_id}</IdText>
+                    <IdText>{list.created_at} {list.member_id} </IdText>
                 </Textdiv>
-            </>
             )}</Wrapper>
         </BackColor>
     )
@@ -63,22 +39,10 @@ const Main = () => {
 
 export default Main
 
-const DeleteEmoji = styled.div`
-    margin-right: 7px;
-`
-
-const CorrectionEmoji = styled.div`
-    margin-right: 10px;
-`
-
 const Titlediv = styled.div`
     margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
-`
-
-const Flex = styled.div`
-    display: flex;
 `
 
 const ContentsText = styled.div`
@@ -117,4 +81,5 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     padding-top: 150px;
+    padding-bottom: 50px;
 `

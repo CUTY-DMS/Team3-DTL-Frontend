@@ -8,3 +8,16 @@ a{
     color: white;
     font-family: 'DoHyeon';
     }
+
+.underbar{
+    text-decoration: line-through;
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 700px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-left: 10px;
+    padding-top: 10px;
+    background-color: white;
+    font-family: 'DoHyeon';
+}

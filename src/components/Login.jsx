@@ -11,7 +11,7 @@ const Login = () => {
     const navigate = useNavigate();
 
     const ClickEvent = () => {
-        axios.post("http://3.34.157.6:8080/users/signin", 
+        axios.post("http://10.156.147.206:8080/users/signin", 
         {
             "userId" : id,
             "userPw" : password,
@@ -19,8 +19,8 @@ const Login = () => {
         .then((response) =>{
             localStorage.setItem("token", response.data.token);
             Swal.fire(
-                '회원 가입 성공',
-                '회원 가입에 성공하셨습니다.',
+                '로그인 성공',
+                '로그인에 성공하셨습니다.',
                 'success'
             )
             navigate("/");

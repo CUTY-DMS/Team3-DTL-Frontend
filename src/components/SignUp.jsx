@@ -16,12 +16,16 @@ function SignUp(){
         if(event.target.value >= 0 || event.target.value < 100)
         setnumber(event.target.value);
         else{
-            alert("나이를 정확히 입력해주십시오.");
+            Swal.fire(
+                '회원가입 실패',
+                '나이를 정확히 입력해주십시오.',
+                'error'
+            )
         }
     }
 
     const ClickEvent=()=>{
-        axios.post("http://3.34.157.6:8080/users/signup", 
+        axios.post("http://10.156.147.206:8080/users/signup", 
         {
             "userId" : id,
             "userAge" : number,

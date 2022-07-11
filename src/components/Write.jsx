@@ -37,8 +37,8 @@ const Write = () => {
     }
 
     const Submit = () => {
-        axios.post("http://3.34.157.6:8080/post", 
-        data, {headers: { Authentication: `${localStorage.getItem("token")}`}}
+        axios.post("http://10.156.147.206:8080/post", 
+        data, {headers: { X_AUTH_TOKEN : `${localStorage.getItem("token")}`}}
         )
         .then((response) =>{
             Swal.fire(
@@ -54,7 +54,6 @@ const Write = () => {
                 '글을 다시 확인해주세요.',
                 'error'
             )
-            console.log(localStorage.getItem("token"))
         });
     }
     
