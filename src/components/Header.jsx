@@ -54,7 +54,6 @@ const Img = styled.img`
 `
 
 const Wrapper = styled.div`
-  position: absolute;
   width: 100vw;
   display: flex;
   align-items: center;

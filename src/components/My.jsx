@@ -2,6 +2,7 @@ import React,{useState, useEffect} from "react";
 import styled from "styled-components"
 import axios from "axios";
 import Swal from "sweetalert2";
+import {Link} from 'react-router-dom'
 
 const My = () => {
     const [nameList,setNameList] = useState([]);
@@ -12,6 +13,7 @@ const My = () => {
             axios.get("http://10.156.147.206:8080/users/my", 
             {headers: { X_AUTH_TOKEN : `${localStorage.getItem("token")}`}})
             .then((response) =>{
+                console.log(response.data)
                 setNameList(response.data.todos);
                 setNameInfoList(response.data.user_name);
                 setAgeInfoList(response.data.user_age);
@@ -19,20 +21,12 @@ const My = () => {
             .catch((error) => {
                 Swal.fire(
                     '불러오기 실패',
-                    '빽정에게 문의하세요.',
+                    '로그아웃 후 다시 로그인',
                     'error'
                 )
             })
         },[]
     )
-
-    const Delete = () => {
-
-    }
-
-    const Correction = () => {
-
-    }
 
         return(
             <BackColor>
@@ -43,15 +37,13 @@ const My = () => {
                 </InfoBox>
                 {nameList.map((list, index) => 
                 <Textdiv key={index}>
-                    <Titlediv>
-                        <div>{list.title}</div>
-                        <Flex>
-                            <CorrectionEmoji onClick={Correction}>📄</CorrectionEmoji>
-                            <DeleteEmoji onClick={Delete}>🗑️</DeleteEmoji>
-                        </Flex>
-                    </Titlediv>
-                    <ContentsText>{list.content}</ContentsText>
-                    <IdText>{list.created_at}</IdText>
+                    <Link to={`/post/my/${list.id}`}>
+                        <Titlediv>
+                            <div>{list.title}</div>
+                        </Titlediv>
+                        <ContentsText>{list.content}</ContentsText>
+                        <IdText>{list.created_at}</IdText>
+                    </Link>
                 </Textdiv>
             )}</Wrapper>
             </BackColor>
@@ -77,40 +69,30 @@ const InfoBox = styled.div`
     padding-right: 15px;
 `
 
-const DeleteEmoji = styled.div`
-    margin-right: 7px;
-`
-
-const CorrectionEmoji = styled.div`
-    margin-right: 10px;
-`
-
 const Titlediv = styled.div`
     margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
-`
-
-const Flex = styled.div`
-    display: flex;
+    color: black;
 `
 
 const ContentsText = styled.div`
     border-top: 1px solid black;
     width: 690px;
-    padding-top: 15px;
+    padding-top: 20px;
+    color: black;
 `
 
 const IdText = styled.div`
     font-size: 10px;
     float: right;
-    padding-bottom: 5px;
     padding-right: 10px;
     color: #0000b8;
 `
 
 const BackColor = styled.div`
-    height: 100%;
+    min-height: 100vh;
+    width: 100vw;
     background-color: #00000016;
 `
 
@@ -130,5 +112,5 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 150px;
+    padding: 80px;
 `

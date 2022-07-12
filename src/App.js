@@ -4,6 +4,8 @@ import Mainpage from './pages/Mainpage';
 import Writepage from './pages/Writepage';
 import Loginpage from './pages/Loginpage';
 import Mypage from "./pages/Mypage";
+import Detailpage from "./pages/Detailpage"
+import MyDetailpage from "./pages/MyDetailpage";
 
 function App() {
 
@@ -16,6 +18,8 @@ function App() {
       <Route path="/Mypage" element={<Mypage/>}></Route>
       <Route path="/SignUppage" element={<SignUppage/>}></Route>
       <Route path="/writepage" element={<Writepage/>}></Route>
+      <Route path="/post/:id" element={<Detailpage/>}/>
+      <Route path="/post/my/:id" element={<MyDetailpage/>}/>
     </Routes>
     </BrowserRouter>
   </>

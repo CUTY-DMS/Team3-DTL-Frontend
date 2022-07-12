@@ -3,14 +3,15 @@ import axios from "axios";
 import styled from "styled-components"
 import Swal from "sweetalert2";
 import "../style/style.css";
+import {Link} from 'react-router-dom'
 
 const Main = () => {
-    const [nameList,setNameList] = useState([]);
+    const [dataList,setDataList] = useState([]);
     useEffect(
         () => {
             axios.get("http://10.156.147.206:8080/post/main")
             .then((response) =>{
-                setNameList(response.data)
+                setDataList(response.data)
             })
             .catch((error) => {
                 Swal.fire(
@@ -21,16 +22,17 @@ const Main = () => {
             })
         },[]
     )
-
     return (
         <BackColor>
-            <Wrapper>{nameList.map((list, index) =>
+            <Wrapper> {dataList.map((list, index) =>
                 <Textdiv key={index} className="text">
-                    <Titlediv>
-                        <div>{list.title}</div>
-                    </Titlediv>
-                    <ContentsText>{list.contents}</ContentsText>
-                    <IdText>{list.created_at} {list.member_id} </IdText>
+                    <Link to={`/post/${list.id}`}>
+                        <IdText>{list.created_at} {list.member_id}</IdText>
+                        <Titlediv>
+                            <div>{list.title}</div>
+                        </Titlediv>
+                        <ContentsText>{list.contents}</ContentsText>
+                    </Link>
                 </Textdiv>
             )}</Wrapper>
         </BackColor>
@@ -43,25 +45,31 @@ const Titlediv = styled.div`
     margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
+    >div{
+        color: black;
+    }
 `
 
 const ContentsText = styled.div`
     border-top: 1px solid black;
     width: 690px;
-    padding-top: 15px;
+    color: black;
+    padding-top: 10px;
+    padding-bottom: 10px;
 `
 
 const IdText = styled.div`
-    font-size: 10px;
-    float: right;
-    padding-bottom: 5px;
     padding-right: 10px;
+    font-size: 10px;
+    display: flex;
+    float: right;
     color: #0000b8;
 `
 
 const BackColor = styled.div`
     background-color: #00000016;
-    height: 100%;
+    min-height: 100vh;
+    width: 100vw;
 `
 
 const Textdiv = styled.div`
@@ -80,6 +88,6 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 150px;
+    padding-top: 60px;
     padding-bottom: 50px;
 `
