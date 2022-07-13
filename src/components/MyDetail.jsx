@@ -16,7 +16,8 @@ const Detail = () => {
 
     useEffect(
         () => {
-            axios.get(`http://10.156.147.206:8080/post/${id}`)
+            axios.get(`http://10.156.147.206:8080/post/${id}`,
+            {headers: { AccessToken : `${localStorage.getItem("token")}`}})
             .then((response) =>{
                 setDataList(response.data)
             })
@@ -32,7 +33,7 @@ const Detail = () => {
 
     const Delete = () => {
         axios.delete(`http://10.156.147.206:8080/users/my/${id}`, 
-        {headers: { X_AUTH_TOKEN : `${localStorage.getItem("token")}`}})
+        {headers: { AccessToken : `${localStorage.getItem("token")}`}})
         .then((response) => {
             navigate("/Mypage");
             Swal.fire(
@@ -70,7 +71,7 @@ const Detail = () => {
     }
 
     const Correction = () => {
-
+        navigate(`/Correction/${id}`);
     }
 
     return(
@@ -79,7 +80,7 @@ const Detail = () => {
             <Wrapper>
                 <CompleteDiv>
                     <CompleteText onClick={Click}>완료/취소</CompleteText>
-                    <SuccessText>{ dataList.success }</SuccessText>
+                    <SuccessText>완료 : { dataList.success ? "⭕" : "❌" }</SuccessText>
                 </CompleteDiv>
                 <TitleDiv>{ dataList.title }</TitleDiv>
                 <ContentDiv>{ dataList.content }</ContentDiv>
@@ -107,12 +108,14 @@ const CompleteDiv = styled.div`
 `
 
 const SuccessText = styled.div`
-    color: black;
+    margin-left: 10px;
+    margin-top: 2px;
 `
 
 const CompleteText = styled.button`
     font-size: 18px;
-    margin-top: 2px;
+    margin-left: 2px;
+    margin-bottom: 10px;
     border-radius: 5px;
     color: white;
     background-color: black;
@@ -167,6 +170,7 @@ const ContentDiv = styled.div`
     padding-bottom: 13px;
     width: 660px;
     margin-left: 20px;
+    
 `
 
 const CreatedDiv = styled.div`

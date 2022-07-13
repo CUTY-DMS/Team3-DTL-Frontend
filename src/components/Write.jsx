@@ -7,10 +7,10 @@ import Swal from "sweetalert2";
 const Write = () => {
     const [data, setData] = useState({
         title: "",
-        contents: ""
+        content: ""
     });
 
-    const { title,contents } = data;
+    const { title,content } = data;
 
     const onChange = (e) => {
         const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
@@ -24,7 +24,7 @@ const Write = () => {
     const navigate = useNavigate();
 
     const Checking = () => {
-        if(title !== "" && contents !== ""){
+        if(title !== "" && content !== ""){
             Submit();
         }
         else{
@@ -38,7 +38,7 @@ const Write = () => {
 
     const Submit = () => {
         axios.post("http://10.156.147.206:8080/post", 
-        data, {headers: { X_AUTH_TOKEN : `${localStorage.getItem("token")}`}}
+        data, {headers: { AccessToken : `${localStorage.getItem("token")}`}}
         )
         .then((response) =>{
             Swal.fire(
@@ -71,9 +71,9 @@ const Write = () => {
             placeholder="제목을 입력해주세요." />
             <InputTitle>내용</InputTitle>
             <Textarea
-            name="contents"
+            name="content"
             maxlength="100"
-            value={contents}
+            value={content}
             onChange={onChange}
             placeholder="내용을 입력해주세요."
             />
@@ -95,19 +95,20 @@ const InputTitle = styled.div`
 const Wrapper = styled.div`
     display: flex;
     padding-top: 100px;
-    height: 100vh;
+    min-height: 100vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border: 0px solid black;
     background-color: #00000016;
     > input{
-    width: 520px;
+    width: 512px;
     height: 30px;
     border-radius: 10px;
     border-color: black;
     outline-color: black;
-    padding: 5px 5px;
+    padding: 5px 5px;font-size: 20px;
+    font-family: 'DoHyeon';
     }
     `
 
@@ -120,6 +121,8 @@ const Textarea = styled.textarea`
     border-width: 2px;
     resize: none;
     padding: 10px 10px;
+    font-size: 20px;
+    font-family: 'DoHyeon';
     `
 
 const Btn = styled.button`

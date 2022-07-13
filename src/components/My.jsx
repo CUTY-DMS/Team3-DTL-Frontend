@@ -11,9 +11,8 @@ const My = () => {
     useEffect(
         () => {
             axios.get("http://10.156.147.206:8080/users/my", 
-            {headers: { X_AUTH_TOKEN : `${localStorage.getItem("token")}`}})
+            {headers: { AccessToken : `${localStorage.getItem("token")}`}})
             .then((response) =>{
-                console.log(response.data)
                 setNameList(response.data.todos);
                 setNameInfoList(response.data.user_name);
                 setAgeInfoList(response.data.user_age);
@@ -38,11 +37,16 @@ const My = () => {
                 {nameList.map((list, index) => 
                 <Textdiv key={index}>
                     <Link to={`/post/my/${list.id}`}>
+                    <Situation>완료 : { list.success ? "⭕" : "❌" }</Situation>
                         <Titlediv>
                             <div>{list.title}</div>
                         </Titlediv>
                         <ContentsText>{list.content}</ContentsText>
                         <IdText>{list.created_at}</IdText>
+                        <LikeDiv>
+                            <LikeImoge>❤</LikeImoge>
+                            <LikeText>{list.like_count}</LikeText>
+                        </LikeDiv>
                     </Link>
                 </Textdiv>
             )}</Wrapper>
@@ -52,11 +56,33 @@ const My = () => {
 
 export default My
 
+const LikeDiv = styled.div`
+    display: flex;
+    margin-top: 6px;
+    margin-bottom: 6px;
+`
+
+const LikeImoge = styled.div`
+    color: red;
+    margin-top: -2px;
+    margin-right: 5px;
+`
+
+const LikeText = styled.div`
+    color: black;
+`
+
 const TextDiv = styled.div`
     display: flex;
     justify-content: center;
     font-size: 40px;
     font-family: 'DoHyeon';
+`
+
+const Situation = styled.div`
+    color: black;
+    font-size: 20px;
+    margin-bottom: 10px;
 `
 
 const InfoBox = styled.div`

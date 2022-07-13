@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { useParams, useNavigate } from "react-router-dom"
 
 const Detail = () => {
+    const [ like, setlike ] = useState();
     const [ dataList,setDataList ] = useState([]);
     const { id } = useParams();
     
@@ -14,16 +15,30 @@ const Detail = () => {
         navigate("/");
     }
     
-    useEffect(
-        () => {
-            axios.get(`http://10.156.147.206:8080/post/${id}`)
-            .then((response) =>{
+    const Liking = () => {
+            axios.post(`http://10.156.147.206:8080/post/main/like/${id}`,
+            {headers: { AccessToken : `${localStorage.getItem("token")}`}})
+            .catch((error) => {
+                Swal.fire(
+                    '실패.',
+                    '니 코드 봐봐.',
+                    'error'
+                )
+            })
+        }
+        
+        useEffect(
+            () => {
+                axios.get(`http://10.156.147.206:8080/post/${id}`,
+                {headers: { AccessToken : `${localStorage.getItem("token")}`}})
+                .then((response) =>{
+                setlike(response.data.like_count)
                 setDataList(response.data)
             })
             .catch((error) => {
                 Swal.fire(
-                    '불러오기 실패',
-                    '빽정에게 문의하세요.',
+                    '로그인 후 이용 가능합니다.',
+                    '회원이 아니시라면 회원 가입을 해주세요.',
                     'error'
                 )
             })
@@ -34,10 +49,12 @@ const Detail = () => {
         <>
         <BackColor>
             <Wrapper>
+            <Situation>완료 : { dataList.success ? "⭕" : "❌" }</Situation>
                 <TitleDiv>{ dataList.title }</TitleDiv>
                 <ContentDiv>{ dataList.content }</ContentDiv>
-                <NameDiv>{ dataList.user_name }</NameDiv>
-                <CreatedDiv>{ dataList.created_at }</CreatedDiv>
+                    <NameDiv>{ dataList.user_name }</NameDiv>
+                    <CreatedDiv>{ dataList.created_at }</CreatedDiv>
+                <LikeDiv onClick={Liking}>{dataList.liked ? "🧡" : "🤍" } {like}</LikeDiv>
             </Wrapper>
             <OkayBtn onClick={Home}>확인</OkayBtn>
         </BackColor>
@@ -54,6 +71,14 @@ const Wrapper = styled.div`
     border-radius: 10px;
     width: 700px;
     background-color: white;
+`
+
+const Situation = styled.div`
+    color: black;
+    font-size: 35px;
+    margin-top: 15px;
+    margin-left: 19px;
+    font-family: 'DoHyeon';
 `
 
 const OkayBtn = styled.button`
@@ -112,5 +137,14 @@ const NameDiv = styled.div`
     font-size: 20px;
     color: #0000b8b5;
     font-family: 'DoHyeon';
-    margin: 10px 18px 5px 0px;
+    margin: 38px 18px 5px 0px;
+`
+
+const LikeDiv = styled.div`
+    border: 0px solid black;
+    width: 50px;
+    font-size: 20px;
+    margin-left: 18px;
+    margin-bottom: 18px;
+    cursor: pointer;
 `

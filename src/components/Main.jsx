@@ -9,7 +9,8 @@ const Main = () => {
     const [dataList,setDataList] = useState([]);
     useEffect(
         () => {
-            axios.get("http://10.156.147.206:8080/post/main")
+            axios.get("http://10.156.147.206:8080/post/main",
+            {headers: { AccessToken : `${localStorage.getItem("token")}`}})
             .then((response) =>{
                 setDataList(response.data)
             })
@@ -27,11 +28,16 @@ const Main = () => {
             <Wrapper> {dataList.map((list, index) =>
                 <Textdiv key={index} className="text">
                     <Link to={`/post/${list.id}`}>
+                        <Situation>완료 : { list.success ? "⭕" : "❌" }</Situation>
                         <IdText>{list.created_at} {list.member_id}</IdText>
                         <Titlediv>
                             <div>{list.title}</div>
                         </Titlediv>
-                        <ContentsText>{list.contents}</ContentsText>
+                        <ContentsText>{list.content}</ContentsText>
+                        <LikeDiv>
+                            <LikeImoge>❤</LikeImoge>
+                            <LikeText>{list.like_count}</LikeText>
+                        </LikeDiv>
                     </Link>
                 </Textdiv>
             )}</Wrapper>
@@ -41,6 +47,22 @@ const Main = () => {
 
 export default Main
 
+const LikeDiv = styled.div`
+    display: flex;
+    margin-top: -5px;
+    margin-bottom: 6px;
+`
+
+const LikeImoge = styled.div`
+    color: red;
+    margin-top: -2px;
+    margin-right: 5px;
+`
+
+const LikeText = styled.div`
+    color: black;
+`
+
 const Titlediv = styled.div`
     margin-bottom: 10px;
     display: flex;
@@ -48,6 +70,12 @@ const Titlediv = styled.div`
     >div{
         color: black;
     }
+`
+
+const Situation = styled.div`
+    color: black;
+    font-size: 20px;
+    margin-bottom: 10px;
 `
 
 const ContentsText = styled.div`
