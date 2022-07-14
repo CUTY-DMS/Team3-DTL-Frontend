@@ -140,6 +140,7 @@ const OkayBtn = styled.button`
     width: 80px;
     height: 40px;
     font-family: 'DoHyeon';
+    cursor: pointer;
 `
 
 const BackColor = styled.div`

@@ -145,6 +145,7 @@ const Btn = styled.button`
     font-weight: 900;
     color: white;
     background-color: black;
+    cursor: pointer;
 `
 
 const Input = styled.input`

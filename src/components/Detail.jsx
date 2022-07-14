@@ -5,7 +5,8 @@ import Swal from "sweetalert2";
 import { useParams, useNavigate } from "react-router-dom"
 
 const Detail = () => {
-    const [ like, setlike ] = useState();
+    const [ like, setLike ] = useState();
+    const [ likeImoge, setLikeImoge ] = useState();
     const [ dataList,setDataList ] = useState([]);
     const { id } = useParams();
     
@@ -16,8 +17,13 @@ const Detail = () => {
     }
     
     const Liking = () => {
-            axios.post(`http://10.156.147.206:8080/post/main/like/${id}`,
+            axios.get(`http://10.156.147.206:8080/post/main/like/${id}`,
             {headers: { AccessToken : `${localStorage.getItem("token")}`}})
+            .then((response) => {
+                setLike(response.data.like_count);
+                setLikeImoge(response.data.liked)
+                
+            })
             .catch((error) => {
                 Swal.fire(
                     '실패.',
@@ -32,7 +38,8 @@ const Detail = () => {
                 axios.get(`http://10.156.147.206:8080/post/${id}`,
                 {headers: { AccessToken : `${localStorage.getItem("token")}`}})
                 .then((response) =>{
-                setlike(response.data.like_count)
+                setLike(response.data.like_count)
+                setLikeImoge(response.data.liked)
                 setDataList(response.data)
             })
             .catch((error) => {
@@ -54,7 +61,7 @@ const Detail = () => {
                 <ContentDiv>{ dataList.content }</ContentDiv>
                     <NameDiv>{ dataList.user_name }</NameDiv>
                     <CreatedDiv>{ dataList.created_at }</CreatedDiv>
-                <LikeDiv onClick={Liking}>{dataList.liked ? "🧡" : "🤍" } {like}</LikeDiv>
+                <LikeDiv onClick={Liking}>{likeImoge ? "🧡" : "🤍" } {like}</LikeDiv>
             </Wrapper>
             <OkayBtn onClick={Home}>확인</OkayBtn>
         </BackColor>
@@ -90,6 +97,7 @@ const OkayBtn = styled.button`
     width: 80px;
     height: 40px;
     font-family: 'DoHyeon';
+    cursor: pointer;
 `
 
 const BackColor = styled.div`

@@ -102,12 +102,13 @@ const Wrapper = styled.div`
     border: 0px solid black;
     background-color: #00000016;
     > input{
-    width: 512px;
+    width: 500px;
     height: 30px;
     border-radius: 10px;
     border-color: black;
     outline-color: black;
-    padding: 5px 5px;font-size: 20px;
+    padding: 10px 10px;
+    font-size: 20px;
     font-family: 'DoHyeon';
     }
     `
@@ -134,4 +135,5 @@ const Btn = styled.button`
     font-weight: 900;
     color: white;
     background-color: black;
+    cursor: pointer;
 `
