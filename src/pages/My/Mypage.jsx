@@ -1,6 +1,6 @@
 import React from "react";
-import My from "../components/My";
-import Header from "../components/Header";
+import My from "../../components/My/My";
+import Header from "../../components/Header/Header";
 
 const Mypage = () => {
     return <>

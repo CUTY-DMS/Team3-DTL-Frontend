@@ -3,6 +3,7 @@ import styled from "styled-components"
 import axios from "axios";
 import Swal from "sweetalert2";
 import {Link} from 'react-router-dom'
+import { BASE_URL } from "../../api/axios";
 
 const My = () => {
     const [nameList,setNameList] = useState([]);
@@ -10,7 +11,7 @@ const My = () => {
     const [ageInfoList,setAgeInfoList] = useState();
     useEffect(
         () => {
-            axios.get("http://10.156.147.206:8080/users/my", 
+            axios.get(`${ BASE_URL }/users/my`, 
             {headers: { AccessToken : `${localStorage.getItem("token")}`}})
             .then((response) =>{
                 setNameList(response.data.todos);

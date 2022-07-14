@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "../components/Header"
-import MyDetail from "../components/MyDetail";
+import Header from "../../components/Header/Header"
+import MyDetail from "../../components/My/MyDetail";
 
 const MyDetailpage = () => {
     return(

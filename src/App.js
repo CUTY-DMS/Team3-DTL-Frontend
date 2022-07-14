@@ -1,12 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import SignUppage from './pages/SignUppage'
-import Mainpage from './pages/Mainpage';
-import Writepage from './pages/Writepage';
-import Loginpage from './pages/Loginpage';
-import Mypage from "./pages/Mypage";
-import Detailpage from "./pages/Detailpage"
-import MyDetailpage from "./pages/MyDetailpage";
-import Correctionpage from "./pages/Correctionpage";
+import SignUppage from './pages/Header/SignUppage'
+import Mainpage from './pages/Main/Mainpage';
+import Writepage from './pages/Header/Writepage';
+import Loginpage from './pages/Header/Loginpage';
+import Mypage from "./pages/My/Mypage";
+import Detailpage from "./pages/Main/Detailpage"
+import MyDetailpage from "./pages/My/MyDetailpage";
+import Correctionpage from "./pages/My/Correctionpage";
 
 function App() {
 

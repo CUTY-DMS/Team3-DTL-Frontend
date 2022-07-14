@@ -3,6 +3,7 @@ import axios from "axios";
 import styled from "styled-components"
 import Swal from "sweetalert2";
 import { useParams, useNavigate } from "react-router-dom"
+import { BASE_URL } from "../../api/axios";
 
 const Detail = () => {
     const [ like, setLike ] = useState();
@@ -17,7 +18,7 @@ const Detail = () => {
     }
     
     const Liking = () => {
-            axios.get(`http://10.156.147.206:8080/post/main/like/${id}`,
+            axios.get(`${ BASE_URL }/post/main/like/${id}`,
             {headers: { AccessToken : `${localStorage.getItem("token")}`}})
             .then((response) => {
                 setLike(response.data.like_count);
@@ -35,7 +36,7 @@ const Detail = () => {
         
         useEffect(
             () => {
-                axios.get(`http://10.156.147.206:8080/post/${id}`,
+                axios.get(`${ BASE_URL }/post/${id}`,
                 {headers: { AccessToken : `${localStorage.getItem("token")}`}})
                 .then((response) =>{
                 setLike(response.data.like_count)

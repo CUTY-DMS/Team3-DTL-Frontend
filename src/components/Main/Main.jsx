@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components"
 import Swal from "sweetalert2";
-import "../style/style.css";
+import "../../style/style.css";
 import {Link} from 'react-router-dom'
+import { BASE_URL } from "../../api/axios";
 
 const Main = () => {
     const [dataList,setDataList] = useState([]);
     useEffect(
         () => {
-            axios.get("http://10.156.147.206:8080/post/main",
+            axios.get(`${ BASE_URL }/post/main`,
             {headers: { AccessToken : `${localStorage.getItem("token")}`}})
             .then((response) =>{
                 setDataList(response.data)

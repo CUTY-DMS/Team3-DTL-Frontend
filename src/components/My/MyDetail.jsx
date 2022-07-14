@@ -3,6 +3,7 @@ import axios from "axios";
 import styled from "styled-components"
 import Swal from "sweetalert2";
 import { useParams, useNavigate } from "react-router-dom"
+import { BASE_URL } from "../../api/axios";
 
 const Detail = () => {
     const {id} = useParams();
@@ -16,7 +17,7 @@ const Detail = () => {
 
     useEffect(
         () => {
-            axios.get(`http://10.156.147.206:8080/post/${id}`,
+            axios.get(`${ BASE_URL }/post/${id}`,
             {headers: { AccessToken : `${localStorage.getItem("token")}`}})
             .then((response) =>{
                 setDataList(response.data)
@@ -32,7 +33,7 @@ const Detail = () => {
     )
 
     const Delete = () => {
-        axios.delete(`http://10.156.147.206:8080/users/my/${id}`, 
+        axios.delete(`${ BASE_URL }/users/my/${id}`, 
         {headers: { AccessToken : `${localStorage.getItem("token")}`}})
         .then((response) => {
             navigate("/Mypage");
@@ -52,7 +53,7 @@ const Detail = () => {
     }
 
     const Click = () => {
-        axios.patch(`http://10.156.147.206:8080/users/my/${id}`)
+        axios.patch(`${ BASE_URL }/users/my/${id}`)
         .then((response) => {
             navigate("/Mypage");
             Swal.fire(

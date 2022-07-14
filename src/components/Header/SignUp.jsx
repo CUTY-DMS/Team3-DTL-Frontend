@@ -3,6 +3,7 @@ import styled from "styled-components"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { BASE_URL } from "../../api/axios";
 
 function SignUp(){
     const [name, setname] = useState("");
@@ -25,7 +26,7 @@ function SignUp(){
     }
 
     const ClickEvent=()=>{
-        axios.post("http://10.156.147.206:8080/users/signup", 
+        axios.post(`${ BASE_URL }/users/signup`, 
         {
             "userId" : id,
             "userAge" : number,

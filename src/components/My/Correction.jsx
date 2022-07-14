@@ -3,7 +3,7 @@ import axios from "axios";
 import styled from "styled-components"
 import Swal from "sweetalert2";
 import { useParams, useNavigate } from "react-router-dom"
-
+import { BASE_URL } from "../../api/axios";
 
 const Correction = () => {
     const {id} = useParams();
@@ -27,7 +27,7 @@ const Correction = () => {
 
     useEffect(
         () => {
-            axios.get(`http://10.156.147.206:8080/post/${id}`,
+            axios.get(`${ BASE_URL }/post/${id}`,
             {headers: { AccessToken : `${localStorage.getItem("token")}`}})
             .then((response) =>{
                 setDataList(response.data)
@@ -44,7 +44,7 @@ const Correction = () => {
     )
 
     const Complete = () => {
-        axios.put(`http://10.156.147.206:8080/users/my/${id}`,
+        axios.put(`${ BASE_URL }/users/my/${id}`,
         data, {headers: { AccessToken : `${localStorage.getItem("token")}`}})
         .then((response) => {
             Swal.fire(

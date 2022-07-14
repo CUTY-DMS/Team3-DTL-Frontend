@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Swal from "sweetalert2";
+import { BASE_URL } from "../../api/axios";
 
 const Write = () => {
     const [data, setData] = useState({
@@ -37,7 +38,7 @@ const Write = () => {
     }
 
     const Submit = () => {
-        axios.post("http://10.156.147.206:8080/post", 
+        axios.post(`${ BASE_URL }/post`, 
         data, {headers: { AccessToken : `${localStorage.getItem("token")}`}}
         )
         .then((response) =>{

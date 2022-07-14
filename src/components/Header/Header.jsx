@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import mainDTL from "../assets/img/mainDTL.png";
-import "../style/style.css";
+import mainDTL from "../../assets/img/mainDTL.png";
+import "../../style/style.css";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {

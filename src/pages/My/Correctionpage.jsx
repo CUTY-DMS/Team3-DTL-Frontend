@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "../components/Header"
-import Correction from "../components/Correction";
+import Header from "../../components/Header/Header"
+import Correction from "../../components/My/Correction";
 
 const Correctionpage = () => {
     return(
